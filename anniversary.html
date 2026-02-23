@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 Years of Us 🦉💕</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@700&display=swap');
+
+  :root {
+    --gold: #FFB347; --pink: #FF6B9D; --teal: #4ECDC4;
+    --purple: #C77DFF; --orange: #FF8C42; --cream: #FFF8E7;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
+    transition: background 2s ease;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='18' font-size='18'%3E🌟%3C/text%3E%3C/svg%3E"), auto;
+  }
+  body.is-day     { background: linear-gradient(180deg,#87CEEB 0%,#b8e4f7 40%,#FFE9A0 80%,#FFD570 100%); }
+  body.is-evening { background: linear-gradient(180deg,#FF5722 0%,#FF7043 20%,#FF9800 50%,#FFD580 80%,#FCEABB 100%); }
+  body.is-night   { background: linear-gradient(180deg,#030012 0%,#0a0520 30%,#1a0a2e 70%,#2D1B40 100%); }
+
+  #sky-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+  #scene { position:relative; width:100%; min-height:100vh; overflow:hidden; z-index:1; }
+
+  /* ── CELESTIAL ── */
+  #celestial {
+    position:absolute; top:30px; right:8%;
+    width:90px; height:90px; border-radius:50%; z-index:2;
+    transition: background 2s, box-shadow 2s, top 2s, bottom 2s, right 2s, width 2s, height 2s;
+  }
+  body.is-night #celestial {
+    background: radial-gradient(circle at 35% 35%,#fffde7,#FFD54F,#EEB000);
+    box-shadow: 0 0 40px 15px rgba(255,213,79,.5),0 0 90px 35px rgba(255,213,79,.2);
+    animation: moonGlow 3s ease-in-out infinite; top:30px; bottom:auto; width:90px; height:90px;
+  }
+  body.is-day #celestial {
+    background: radial-gradient(circle at 40% 40%,#fff9c4,#FFE033,#FFB300);
+    box-shadow: 0 0 50px 20px rgba(255,220,0,.55),0 0 130px 55px rgba(255,200,0,.3);
+    animation: sunGlow 4s ease-in-out infinite; top:30px; bottom:auto; width:90px; height:90px;
+  }
+  body.is-evening #celestial {
+    background: radial-gradient(circle at 40% 40%,#FFD580,#FF8C42,#FF5722);
+    box-shadow: 0 0 50px 20px rgba(255,120,50,.7),0 0 130px 55px rgba(255,87,34,.35);
+    animation: sunGlow 4s ease-in-out infinite;
+    top:auto; bottom:90px; right:12%; width:110px; height:110px;
+  }
+  @keyframes moonGlow {
+    0%,100% { box-shadow:0 0 40px 15px rgba(255,213,79,.5),0 0 90px 35px rgba(255,213,79,.2); }
+    50%      { box-shadow:0 0 70px 28px rgba(255,213,79,.8),0 0 140px 60px rgba(255,213,79,.35); }
+  }
+  @keyframes sunGlow { 0%,100% { transform:scale(1); } 50% { transform:scale(1.06); } }
+
+  /* ── CLOUDS ── */
+  .cloud { position:absolute; border-radius:50px; animation:cloudDrift linear infinite; transition:background 2s; }
+  body.is-day     .cloud { background:rgba(255,255,255,.82); }
+  body.is-evening .cloud { background:rgba(255,170,100,.6); }
+  body.is-night   .cloud { background:rgba(255,255,255,.06); }
+  @keyframes cloudDrift {
+    from { transform:translateX(-250px); opacity:0; }
+    10%  { opacity:1; } 90% { opacity:1; }
+    to   { transform:translateX(120vw); opacity:0; }
+  }
+
+  /* ── HERO ── */
+  #hero { position:relative; text-align:center; padding:40px 20px 0; z-index:10; }
+  .anniversary-badge {
+    display:inline-block;
+    background:linear-gradient(135deg,var(--gold),#FF8C42);
+    color:#1a0a2e; font-family:'Pacifico',cursive;
+    font-size:clamp(1rem,3vw,1.4rem); padding:8px 24px;
+    border-radius:50px; letter-spacing:2px; margin-bottom:12px;
+    box-shadow:0 0 30px rgba(255,179,71,.6);
+    animation:badgePulse 2s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%,100% { box-shadow:0 0 30px rgba(255,179,71,.6); }
+    50%      { box-shadow:0 0 60px rgba(255,179,71,1); }
+  }
+  .main-title {
+    font-family:'Dancing Script',cursive; font-size:clamp(2.5rem,8vw,6rem);
+    text-shadow:0 0 40px rgba(255,107,157,.7),0 2px 0 rgba(0,0,0,.1);
+    line-height:1.1; animation:titleFloat 4s ease-in-out infinite; transition:color 2s;
+  }
+  body.is-night   .main-title { color:var(--cream); }
+  body.is-day     .main-title { color:#2e1060; }
+  body.is-evening .main-title { color:#3a1000; }
+  @keyframes titleFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+
+  .subtitle { font-size:clamp(1rem,2.5vw,1.3rem); margin-top:10px; letter-spacing:3px; text-transform:uppercase; font-weight:700; transition:color 2s; }
+  body.is-night   .subtitle { color:var(--teal); }
+  body.is-day     .subtitle { color:#5B3FA6; }
+  body.is-evening .subtitle { color:#8B3A00; }
+
+  /* ── TREE ── */
+  #tree-scene { position:relative; width:100%; height:500px; margin-top:20px; }
+  #tree-svg { position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:min(700px,95vw); z-index:3; filter:drop-shadow(0 10px 30px rgba(0,0,0,.3)); }
+
+  /* ── OWLS ── */
+  /* Position is driven purely by JS via transform:translate on .owl-inner */
+  .owl-wrapper {
+    position: absolute; z-index:10; cursor:pointer; user-select:none;
+    /* Fixed anchor — JS moves .owl-inner inside via transform */
+    left: 0; top: 0; will-change: transform;
+  }
+  .owl-wrapper:hover { filter:brightness(1.15) drop-shadow(0 0 12px rgba(255,200,100,.7)); }
+
+  /* Inner div that JS moves smoothly via transform:translate */
+  .owl-inner { display:inline-block; }
+
+  /* open/closed eyes */
+  .eyes-closed { display:none; }
+  .sleeping-owl .eyes-closed { display:block; }
+  .sleeping-owl .eyes-open   { display:none; }
+
+  /* Wing-flap: squash+stretch the whole body to simulate wings beating */
+  @keyframes wingFlap {
+    0%   { transform: scaleX(1.00) scaleY(1.00) rotate( 0deg); }
+    12%  { transform: scaleX(1.28) scaleY(0.76) rotate(-5deg); }
+    25%  { transform: scaleX(0.78) scaleY(1.22) rotate( 6deg); }
+    38%  { transform: scaleX(1.24) scaleY(0.80) rotate(-4deg); }
+    50%  { transform: scaleX(0.80) scaleY(1.20) rotate( 5deg); }
+    63%  { transform: scaleX(1.20) scaleY(0.83) rotate(-3deg); }
+    75%  { transform: scaleX(0.84) scaleY(1.16) rotate( 4deg); }
+    88%  { transform: scaleX(1.14) scaleY(0.88) rotate(-2deg); }
+    100% { transform: scaleX(1.00) scaleY(1.00) rotate( 0deg); }
+  }
+  /* Gentle perch bob */
+  @keyframes perchBob {
+    0%,100% { transform: translateY(0px)  rotate(-1.5deg) scaleX(1.00) scaleY(1.00); }
+    40%     { transform: translateY(-9px) rotate( 2.0deg) scaleX(1.03) scaleY(0.97); }
+    70%     { transform: translateY(-4px) rotate(-1.0deg) scaleX(1.01) scaleY(0.99); }
+  }
+
+  .owl-inner.is-flying  { animation: wingFlap 0.32s ease-in-out infinite; }
+  .owl-inner.is-perched { animation: perchBob 2.8s ease-in-out infinite; }
+
+  .owl-name { position:absolute; bottom:-26px; left:50%; transform:translateX(-50%); font-size:.72rem; font-weight:700; letter-spacing:1px; white-space:nowrap; text-shadow:0 1px 4px rgba(0,0,0,.6); transition:color 2s; }
+  body.is-night   .owl-name { color:var(--gold); }
+  body.is-day     .owl-name { color:#3a1060; }
+  body.is-evening .owl-name { color:#7A3000; }
+
+  /* ── HEARTS / FIREFLIES ── */
+  .heart { position:absolute; font-size:1.5rem; animation:heartRise 4s ease-out forwards; pointer-events:none; z-index:20; }
+  @keyframes heartRise { 0%{transform:translateY(0) scale(0) rotate(0deg);opacity:1} 50%{transform:translateY(-120px) scale(1.2) rotate(15deg);opacity:1} 100%{transform:translateY(-250px) scale(.5) rotate(-10deg);opacity:0} }
+
+  .firefly { position:absolute; width:6px; height:6px; border-radius:50%; background:#FFFF99; box-shadow:0 0 8px 3px rgba(255,255,150,.8); animation:fireflyMove linear infinite; pointer-events:none; z-index:8; transition:opacity 2s; }
+  body.is-day     .firefly { opacity:0; }
+  body.is-evening .firefly { opacity:.25; }
+  body.is-night   .firefly { opacity:1; }
+  @keyframes fireflyMove { 0%{transform:translate(0,0);opacity:0} 20%{opacity:1} 80%{opacity:.8} 100%{transform:translate(var(--fx),var(--fy));opacity:0} }
+
+  /* ── LOVE STORY ── */
+  #love-story { position:relative; z-index:10; text-align:center; padding:40px 20px; opacity:0; animation:fadeUp 1s ease 5s forwards; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  .love-counter { display:flex; justify-content:center; gap:clamp(14px,4vw,50px); flex-wrap:wrap; margin-bottom:36px; }
+  .counter-item { text-align:center; border-radius:20px; padding:18px 26px; backdrop-filter:blur(10px); transition:transform .3s,box-shadow .3s,background 2s,border 2s; }
+  body.is-night   .counter-item { background:rgba(255,255,255,.05); border:1px solid rgba(255,107,157,.3); }
+  body.is-day     .counter-item { background:rgba(255,255,255,.5);  border:1px solid rgba(91,63,166,.25); }
+  body.is-evening .counter-item { background:rgba(255,200,120,.25); border:1px solid rgba(180,70,0,.3); }
+  .counter-item:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(255,107,157,.3); }
+  .counter-num { font-family:'Pacifico',cursive; font-size:clamp(2rem,5vw,3.5rem); color:var(--gold); text-shadow:0 0 20px rgba(255,179,71,.5); }
+  .counter-label { font-size:.82rem; letter-spacing:2px; text-transform:uppercase; margin-top:4px; transition:color 2s; }
+  body.is-night   .counter-label { color:var(--cream); }
+  body.is-day     .counter-label { color:#2e1060; }
+  body.is-evening .counter-label { color:#6a2800; }
+
+  .love-message { max-width:650px; margin:0 auto 36px; border-radius:24px; padding:28px 38px; backdrop-filter:blur(10px); transition:background 2s,border 2s; }
+  body.is-night   .love-message { background:linear-gradient(135deg,rgba(255,107,157,.1),rgba(78,205,196,.1)); border:1px solid rgba(255,255,255,.1); }
+  body.is-day     .love-message { background:rgba(255,255,255,.55); border:1px solid rgba(91,63,166,.2); }
+  body.is-evening .love-message { background:rgba(255,200,120,.2);  border:1px solid rgba(180,70,0,.2); }
+  .love-message p { font-size:clamp(1rem,2vw,1.2rem); line-height:1.9; font-weight:600; transition:color 2s; }
+  body.is-night   .love-message p { color:var(--cream); }
+  body.is-day     .love-message p { color:#2a1040; }
+  body.is-evening .love-message p { color:#4a1400; }
+  .love-message .signature { font-family:'Dancing Script',cursive; font-size:clamp(1.4rem,3vw,2rem); color:var(--pink); margin-top:16px; display:block; }
+
+  .btn-group { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+  .btn { padding:13px 26px; border:none; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; transition:all .3s; letter-spacing:1px; }
+  .btn-primary { background:linear-gradient(135deg,var(--pink),var(--purple)); color:white; box-shadow:0 4px 20px rgba(255,107,157,.4); }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 8px 30px rgba(255,107,157,.6); }
+  .btn-secondary { background:transparent; color:var(--teal); border:2px solid var(--teal); }
+  .btn-secondary:hover { background:var(--teal); color:#1a0a2e; transform:translateY(-3px); }
+
+  /* ── TOP BAR ── */
+  #top-bar {
+    position:fixed; top:14px; left:50%; transform:translateX(-50%);
+    z-index:200; display:flex; align-items:center; gap:8px;
+    background:rgba(0,0,0,.25); backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.18); border-radius:50px;
+    padding:6px 8px; box-shadow:0 4px 20px rgba(0,0,0,.3);
+  }
+
+  /* time label inside bar */
+  #time-label {
+    font-size:.78rem; font-weight:700; letter-spacing:1px;
+    color:rgba(255,255,255,.9); padding:0 8px; text-transform:uppercase; white-space:nowrap;
+  }
+
+  /* theme toggle pills */
+  .theme-pill {
+    padding:5px 13px; border-radius:50px; border:none; cursor:pointer;
+    font-family:'Quicksand',sans-serif; font-weight:700; font-size:.78rem;
+    letter-spacing:.5px; transition:all .25s; color:rgba(255,255,255,.7);
+    background:transparent;
+  }
+  .theme-pill:hover { background:rgba(255,255,255,.15); color:white; }
+  .theme-pill.active {
+    background:rgba(255,255,255,.92); color:#1a0a2e;
+    box-shadow:0 2px 10px rgba(0,0,0,.25);
+  }
+
+  /* divider */
+  .bar-divider { width:1px; height:22px; background:rgba(255,255,255,.25); }
+
+  /* sound btn */
+  #sound-btn {
+    width:36px; height:36px; border-radius:50%; border:none;
+    background:rgba(255,255,255,.15); color:white; cursor:pointer;
+    font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+    transition:all .25s;
+  }
+  #sound-btn:hover { background:rgba(255,255,255,.3); transform:scale(1.1); }
+
+  /* ── SLEEP ── */
+  #sleep-text { display:none; position:relative; z-index:20; text-align:center; font-family:'Dancing Script',cursive; font-size:2.5rem; color:var(--gold); padding:20px; animation:fadeUp 1s ease forwards; }
+  .zzz { position:absolute; color:var(--purple); font-size:1.1rem; font-weight:700; animation:zzzFloat 2s ease-out infinite; pointer-events:none; }
+  @keyframes zzzFloat { 0%{opacity:0;transform:translate(0,0) scale(.5)} 30%{opacity:1} 100%{opacity:0;transform:translate(14px,-55px) scale(1.2)} }
+
+  .sparkle { position:fixed; pointer-events:none; font-size:1.5rem; animation:sparkleAnim 1s ease-out forwards; z-index:999; }
+  @keyframes sparkleAnim { 0%{transform:scale(0) rotate(0deg);opacity:1} 50%{transform:scale(1.5) rotate(180deg);opacity:1} 100%{transform:scale(0) rotate(360deg);opacity:0} }
+
+  footer { text-align:center; padding:28px; font-size:.8rem; position:relative; z-index:10; transition:color 2s; }
+  body.is-night   footer { color:rgba(255,255,255,.3); }
+  body.is-day     footer { color:rgba(46,16,96,.5); }
+  body.is-evening footer { color:rgba(80,20,0,.5); }
+
+  @media (max-width:600px) {
+    #tree-scene { height:380px; }
+    .love-message { padding:18px 20px; }
+    #top-bar { top:10px; gap:4px; padding:5px 6px; }
+    .theme-pill { padding:4px 9px; font-size:.7rem; }
+    #time-label { font-size:.68rem; padding:0 4px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sky-canvas"></canvas>
+
+<!-- ── TOP BAR ── -->
+<div id="top-bar">
+  <span id="time-label">☀️ Day</span>
+  <div class="bar-divider"></div>
+  <button class="theme-pill" id="pill-auto"    onclick="setThemeMode('auto')">🔄 Auto</button>
+  <button class="theme-pill" id="pill-day"     onclick="setThemeMode('day')">☀️ Day</button>
+  <button class="theme-pill" id="pill-evening" onclick="setThemeMode('evening')">🌅 Evening</button>
+  <button class="theme-pill" id="pill-night"   onclick="setThemeMode('night')">🌙 Night</button>
+  <div class="bar-divider"></div>
+  <button id="sound-btn" onclick="toggleSound()" title="Toggle Sound">🔕</button>
+</div>
+
+<div id="scene">
+  <div id="celestial"></div>
+
+  <!-- Clouds -->
+  <div class="cloud" style="width:180px;height:50px;top:12%;left:-200px;animation-duration:25s;animation-delay:2s"></div>
+  <div class="cloud" style="width:120px;height:35px;top:22%;left:-200px;animation-duration:35s;animation-delay:9s"></div>
+  <div class="cloud" style="width:220px;height:60px;top:8%;left:-200px;animation-duration:30s;animation-delay:17s"></div>
+  <div class="cloud" style="width:90px;height:28px;top:18%;left:-200px;animation-duration:28s;animation-delay:5s"></div>
+
+  <div id="hero">
+    <div class="anniversary-badge">✨ 10th Anniversary ✨</div>
+    <h1 class="main-title">A Decade of Love</h1>
+    <p class="subtitle">Our Little Owl Family 🦉</p>
+  </div>
+
+  <div id="tree-scene">
+
+    <!-- ══ BABU (Papa) = BLUE OWL with glasses + goatee ══ -->
+    <div class="owl-wrapper" id="owl-dad" onclick="owlClick(this,'dad')">
+      <div class="owl-inner is-flying">
+      <svg width="90" height="110" viewBox="0 0 90 110">
+        <!-- Body -->
+        <ellipse cx="45" cy="72" rx="30" ry="35" fill="#4A90D9"/>
+        <ellipse cx="45" cy="79" rx="18" ry="22" fill="#B8D9F8"/>
+        <path d="M28 69 L34 75 L40 69 L46 75 L52 69 L58 75 L62 69" stroke="#1B5FA8" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Wings -->
+        <ellipse cx="18" cy="75" rx="14" ry="22" fill="#2E78C8" transform="rotate(-10 18 75)"/>
+        <ellipse cx="72" cy="75" rx="14" ry="22" fill="#2E78C8" transform="rotate(10 72 75)"/>
+        <!-- Head -->
+        <ellipse cx="45" cy="35" rx="28" ry="27" fill="#4A90D9"/>
+        <!-- Ear tufts -->
+        <polygon points="25,14 19,2 32,12" fill="#1B5FA8"/>
+        <polygon points="65,14 71,2 58,12" fill="#1B5FA8"/>
+        <!-- OPEN EYES + GLASSES -->
+        <g class="eyes-open">
+          <circle cx="33" cy="34" r="11" fill="white"/>
+          <circle cx="57" cy="34" r="11" fill="white"/>
+          <circle cx="33" cy="34" r="8"  fill="#0D3B6E"/>
+          <circle cx="57" cy="34" r="8"  fill="#0D3B6E"/>
+          <circle cx="33" cy="34" r="5"  fill="black"/>
+          <circle cx="57" cy="34" r="5"  fill="black"/>
+          <circle cx="36" cy="31" r="2"  fill="white"/>
+          <circle cx="60" cy="31" r="2"  fill="white"/>
+          <!-- Glasses frames -->
+          <rect x="22" y="25" width="22" height="18" rx="5" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+          <rect x="46" y="25" width="22" height="18" rx="5" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+          <line x1="44" y1="33" x2="46" y2="33" stroke="#1a1a1a" stroke-width="2"/>
+          <line x1="22" y1="33" x2="15" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+          <line x1="68" y1="33" x2="75" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+        </g>
+        <!-- CLOSED EYES (sleep) + glasses still showing -->
+        <g class="eyes-closed">
+          <ellipse cx="33" cy="34" rx="11" ry="11" fill="#4A90D9"/>
+          <path d="M22 34 Q33 43 44 34" stroke="#0D3B6E" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="57" cy="34" rx="11" ry="11" fill="#4A90D9"/>
+          <path d="M46 34 Q57 43 68 34" stroke="#0D3B6E" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <rect x="22" y="25" width="22" height="18" rx="5" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+          <rect x="46" y="25" width="22" height="18" rx="5" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+          <line x1="44" y1="33" x2="46" y2="33" stroke="#1a1a1a" stroke-width="2"/>
+          <line x1="22" y1="33" x2="15" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+          <line x1="68" y1="33" x2="75" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+        </g>
+        <!-- Beak -->
+        <polygon points="45,43 40,51 50,51" fill="#FFB347"/>
+        <!-- GOATEE below beak -->
+        <ellipse cx="45" cy="56" rx="7" ry="3.5" fill="#1B4A8A"/>
+        <path d="M39 55 Q45 64 51 55" stroke="#0D3060" stroke-width="1.8" fill="#1B4A8A" stroke-linecap="round"/>
+        <!-- Belly dot -->
+        <circle cx="45" cy="85" r="7" fill="#2E78C8"/>
+        <circle cx="45" cy="85" r="4" fill="#B8D9F8"/>
+        <!-- Feet -->
+        <path d="M35 105 L30 108 M35 105 L35 108 M35 105 L40 108" stroke="#2E78C8" stroke-width="3" stroke-linecap="round"/>
+        <path d="M55 105 L50 108 M55 105 L55 108 M55 105 L60 108" stroke="#2E78C8" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      </div><!-- /owl-inner -->
+      <div class="owl-name">Babu</div>
+    </div>
+
+    <!-- ══ BACCHU (Mama) = PINK OWL ══ -->
+    <div class="owl-wrapper" id="owl-mom" onclick="owlClick(this,'mom')">
+      <div class="owl-inner is-flying">
+      <svg width="85" height="95" viewBox="0 0 90 100">
+        <!-- Body -->
+        <ellipse cx="45" cy="65" rx="28" ry="33" fill="#FF6B9D"/>
+        <ellipse cx="45" cy="72" rx="16" ry="20" fill="#FFE0EF"/>
+        <path d="M30 60 L37 67 L44 60 L51 67 L58 60" stroke="#C03070" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Wings -->
+        <ellipse cx="19" cy="67" rx="13" ry="21" fill="#E04585" transform="rotate(-8 19 67)"/>
+        <ellipse cx="71" cy="67" rx="13" ry="21" fill="#E04585" transform="rotate(8 71 67)"/>
+        <!-- Head -->
+        <ellipse cx="45" cy="35" rx="26" ry="26" fill="#FF6B9D"/>
+        <!-- Crown -->
+        <polygon points="30,14 35,2 40,14" fill="#C77DFF"/>
+        <polygon points="40,11 45,0 50,11" fill="#FF8C42"/>
+        <polygon points="50,14 55,2 60,14" fill="#C77DFF"/>
+        <!-- OPEN EYES -->
+        <g class="eyes-open">
+          <circle cx="33" cy="35" r="10" fill="white"/>
+          <circle cx="57" cy="35" r="10" fill="white"/>
+          <circle cx="33" cy="35" r="7"  fill="#7A0040"/>
+          <circle cx="57" cy="35" r="7"  fill="#7A0040"/>
+          <circle cx="33" cy="35" r="4"  fill="black"/>
+          <circle cx="57" cy="35" r="4"  fill="black"/>
+          <circle cx="35" cy="33" r="1.5" fill="white"/>
+          <circle cx="59" cy="33" r="1.5" fill="white"/>
+          <!-- Lashes -->
+          <path d="M26 28 L23 25 M29 26 L28 22 M32 26 L32 22" stroke="#7A0040" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M50 27 L50 23 M53 27 L55 23 M56 28 L60 25" stroke="#7A0040" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+        <!-- CLOSED EYES (sleep) -->
+        <g class="eyes-closed">
+          <ellipse cx="33" cy="35" rx="10" ry="10" fill="#FF6B9D"/>
+          <path d="M23 35 Q33 44 43 35" stroke="#7A0040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- closed lashes -->
+          <path d="M26 37 L24 42 M30 38 L29 43 M34 38 L34 43" stroke="#7A0040" stroke-width="1.3" stroke-linecap="round"/>
+          <ellipse cx="57" cy="35" rx="10" ry="10" fill="#FF6B9D"/>
+          <path d="M47 35 Q57 44 67 35" stroke="#7A0040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M50 37 L48 42 M54 38 L53 43 M58 38 L59 43" stroke="#7A0040" stroke-width="1.3" stroke-linecap="round"/>
+        </g>
+        <!-- Beak -->
+        <polygon points="45,42 41,49 49,49" fill="#FFB347"/>
+        <!-- Chest flower -->
+        <circle cx="45" cy="76" r="6" fill="#C03070"/>
+        <circle cx="45" cy="76" r="3.5" fill="#FFB347"/>
+        <!-- Feet -->
+        <path d="M35 96 L30 98 M35 96 L35 98 M35 96 L40 98" stroke="#E04585" stroke-width="3" stroke-linecap="round"/>
+        <path d="M55 96 L50 98 M55 96 L55 98 M55 96 L60 98" stroke="#E04585" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      </div><!-- /owl-inner -->
+      <div class="owl-name">Bacchu</div>
+    </div>
+
+    <!-- ══ PILLI (Daughter 8yr) ══ -->
+    <div class="owl-wrapper" id="owl-daughter" onclick="owlClick(this,'daughter')" style="width:65px;">
+      <div class="owl-inner is-flying">
+      <svg width="65" height="72" viewBox="0 0 65 75">
+        <ellipse cx="32" cy="50" rx="20" ry="24" fill="#FF9EBC"/>
+        <ellipse cx="32" cy="56" rx="11" ry="14" fill="#FFF0F5"/>
+        <ellipse cx="14" cy="50" rx="9"  ry="16" fill="#FFB6C8" transform="rotate(-8 14 50)"/>
+        <ellipse cx="51" cy="50" rx="9"  ry="16" fill="#FFB6C8" transform="rotate(8 51 50)"/>
+        <ellipse cx="32" cy="26" rx="20" ry="19" fill="#FF9EBC"/>
+        <!-- Bow -->
+        <ellipse cx="20" cy="10" rx="8" ry="5" fill="#C77DFF" transform="rotate(-30 20 10)"/>
+        <ellipse cx="44" cy="10" rx="8" ry="5" fill="#C77DFF" transform="rotate(30 44 10)"/>
+        <circle  cx="32" cy="10" r="4"  fill="#FF6B9D"/>
+        <!-- OPEN EYES -->
+        <g class="eyes-open">
+          <circle cx="24" cy="26" r="8" fill="white"/>
+          <circle cx="40" cy="26" r="8" fill="white"/>
+          <circle cx="24" cy="26" r="5" fill="#7A0040"/>
+          <circle cx="40" cy="26" r="5" fill="#7A0040"/>
+          <circle cx="24" cy="26" r="3" fill="black"/>
+          <circle cx="40" cy="26" r="3" fill="black"/>
+          <circle cx="26" cy="24" r="1.2" fill="white"/>
+          <circle cx="42" cy="24" r="1.2" fill="white"/>
+          <path d="M18 20 L15 18 M20 19 L20 16" stroke="#7A0040" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M36 20 L36 17 M38 20 L41 18" stroke="#7A0040" stroke-width="1.2" stroke-linecap="round"/>
+        </g>
+        <!-- CLOSED EYES (sleep) -->
+        <g class="eyes-closed">
+          <ellipse cx="24" cy="26" rx="8" ry="8" fill="#FF9EBC"/>
+          <path d="M16 26 Q24 33 32 26" stroke="#7A0040" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M19 28 L18 32 M23 29 L22 33" stroke="#7A0040" stroke-width="1.1" stroke-linecap="round"/>
+          <ellipse cx="40" cy="26" rx="8" ry="8" fill="#FF9EBC"/>
+          <path d="M32 26 Q40 33 48 26" stroke="#7A0040" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M35 28 L34 32 M39 29 L38 33" stroke="#7A0040" stroke-width="1.1" stroke-linecap="round"/>
+        </g>
+        <polygon points="32,31 29,36 35,36" fill="#FFB347"/>
+        <text x="32" y="63" text-anchor="middle" font-size="10">⭐</text>
+        <path d="M24 72 L20 74 M24 72 L24 74 M24 72 L28 74" stroke="#FF9EBC" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M40 72 L36 74 M40 72 L40 74 M40 72 L44 74" stroke="#FF9EBC" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      </div><!-- /owl-inner -->
+      <div class="owl-name" style="font-size:.65rem">Pilli</div>
+    </div>
+
+    <!-- ══ PANDU (Son 4yr) ══ -->
+    <div class="owl-wrapper" id="owl-son" onclick="owlClick(this,'son')" style="width:55px;">
+      <div class="owl-inner is-flying">
+      <svg width="55" height="62" viewBox="0 0 55 65">
+        <ellipse cx="27" cy="42" rx="17" ry="21" fill="#7BC8F6"/>
+        <ellipse cx="27" cy="48" rx="10" ry="13" fill="#FFF8E7"/>
+        <ellipse cx="11" cy="43" rx="7"  ry="14" fill="#5BB3E8" transform="rotate(-8 11 43)"/>
+        <ellipse cx="43" cy="43" rx="7"  ry="14" fill="#5BB3E8" transform="rotate(8 43 43)"/>
+        <ellipse cx="27" cy="22" rx="18" ry="17" fill="#7BC8F6"/>
+        <polygon points="16,10 13,2 21,9" fill="#5BB3E8"/>
+        <polygon points="38,10 41,2 33,9" fill="#5BB3E8"/>
+        <!-- OPEN EYES -->
+        <g class="eyes-open">
+          <circle cx="20" cy="22" r="7.5" fill="white"/>
+          <circle cx="34" cy="22" r="7.5" fill="white"/>
+          <circle cx="20" cy="22" r="5"   fill="#0D3B6E"/>
+          <circle cx="34" cy="22" r="5"   fill="#0D3B6E"/>
+          <circle cx="20" cy="22" r="3"   fill="black"/>
+          <circle cx="34" cy="22" r="3"   fill="black"/>
+          <circle cx="22" cy="20" r="1.5" fill="white"/>
+          <circle cx="36" cy="20" r="1.5" fill="white"/>
+        </g>
+        <!-- CLOSED EYES (sleep) -->
+        <g class="eyes-closed">
+          <ellipse cx="20" cy="22" rx="7.5" ry="7.5" fill="#7BC8F6"/>
+          <path d="M12.5 22 Q20 29 27.5 22" stroke="#0D3B6E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="34" cy="22" rx="7.5" ry="7.5" fill="#7BC8F6"/>
+          <path d="M26.5 22 Q34 29 41.5 22" stroke="#0D3B6E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        </g>
+        <polygon points="27,28 24,33 30,33" fill="#FFB347"/>
+        <text x="27" y="54" text-anchor="middle" font-size="9">🚀</text>
+        <path d="M19 62 L15 64 M19 62 L19 64 M19 62 L23 64" stroke="#7BC8F6" stroke-width="2" stroke-linecap="round"/>
+        <path d="M35 62 L31 64 M35 62 L35 64 M35 62 L39 64" stroke="#7BC8F6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      </div><!-- /owl-inner -->
+      <div class="owl-name" style="font-size:.65rem">Pandu</div>
+    </div>
+
+    <!-- TREE -->
+    <svg id="tree-svg" viewBox="0 0 700 480" xmlns="http://www.w3.org/2000/svg">
+      <rect x="310" y="300" width="80" height="180" rx="15" fill="#4A2F1A"/>
+      <path d="M320 320 Q325 350 318 380 Q323 410 316 440" stroke="#6B4226" stroke-width="3" fill="none"/>
+      <path d="M360 310 Q368 345 362 375 Q370 405 364 438" stroke="#6B4226" stroke-width="3" fill="none"/>
+      <path d="M350 310 Q220 270 120 230" stroke="#4A2F1A" stroke-width="25" stroke-linecap="round" fill="none"/>
+      <path d="M350 310 Q480 270 580 230" stroke="#4A2F1A" stroke-width="25" stroke-linecap="round" fill="none"/>
+      <path d="M220 270 Q180 220 150 180" stroke="#4A2F1A" stroke-width="15" stroke-linecap="round" fill="none"/>
+      <path d="M480 270 Q520 220 545 175" stroke="#4A2F1A" stroke-width="15" stroke-linecap="round" fill="none"/>
+      <path d="M150 180 Q130 155 110 140" stroke="#4A2F1A" stroke-width="8"  stroke-linecap="round" fill="none"/>
+      <path d="M150 180 Q165 150 175 135" stroke="#4A2F1A" stroke-width="8"  stroke-linecap="round" fill="none"/>
+      <path d="M545 175 Q555 150 565 135" stroke="#4A2F1A" stroke-width="8"  stroke-linecap="round" fill="none"/>
+      <path d="M545 175 Q530 150 518 132" stroke="#4A2F1A" stroke-width="8"  stroke-linecap="round" fill="none"/>
+      <circle cx="350" cy="220" r="90" fill="#2D7A3A" opacity=".9"/>
+      <circle cx="310" cy="200" r="75" fill="#2D9142"/>
+      <circle cx="390" cy="195" r="80" fill="#1E8A35"/>
+      <circle cx="350" cy="170" r="65" fill="#27A348"/>
+      <circle cx="150" cy="155" r="65" fill="#2D7A3A" opacity=".9"/>
+      <circle cx="130" cy="140" r="50" fill="#27A348"/>
+      <circle cx="170" cy="135" r="55" fill="#1E8A35"/>
+      <circle cx="150" cy="118" r="45" fill="#33B558"/>
+      <circle cx="545" cy="155" r="65" fill="#2D7A3A" opacity=".9"/>
+      <circle cx="530" cy="138" r="52" fill="#27A348"/>
+      <circle cx="560" cy="135" r="55" fill="#1E8A35"/>
+      <circle cx="545" cy="116" r="46" fill="#33B558"/>
+      <circle cx="320" cy="190" r="5"  fill="#FFD700" opacity=".85"/>
+      <circle cx="380" cy="185" r="4"  fill="#FF9EBC" opacity=".85"/>
+      <circle cx="340" cy="165" r="5"  fill="#FF9EBC" opacity=".85"/>
+      <circle cx="360" cy="220" r="4"  fill="#FFD700" opacity=".85"/>
+      <circle cx="145" cy="140" r="5"  fill="#FFD700" opacity=".85"/>
+      <circle cx="165" cy="128" r="4"  fill="#FF9EBC" opacity=".85"/>
+      <circle cx="540" cy="138" r="5"  fill="#FFD700" opacity=".85"/>
+      <circle cx="558" cy="128" r="4"  fill="#FF9EBC" opacity=".85"/>
+      <path d="M310 478 Q280 465 250 475" stroke="#4A2F1A" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <path d="M390 478 Q420 465 450 472" stroke="#4A2F1A" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <ellipse cx="350" cy="478" rx="200" ry="14" fill="#1a3a1a" opacity=".45"/>
+    </svg>
+  </div><!-- /tree-scene -->
+
+  <!-- Love Story -->
+  <div id="love-story">
+    <div class="love-counter">
+      <div class="counter-item"><div class="counter-num">10</div><div class="counter-label">Years Together</div></div>
+      <div class="counter-item"><div class="counter-num" id="days-count">3652</div><div class="counter-label">Days of Love</div></div>
+      <div class="counter-item"><div class="counter-num">2</div><div class="counter-label">Beautiful Kids</div></div>
+      <div class="counter-item"><div class="counter-num">∞</div><div class="counter-label">Memories Made</div></div>
+    </div>
+    <div class="love-message">
+      <p>Ten years ago, two little owls found each other and built the most beautiful nest.
+      Through every sunrise and every storm, you've been my home.
+      Our little Pilli and Pandu light up every branch of our tree.
+      Here's to forever flying together. 🦉💕🦉</p>
+      <span class="signature">Happy 10th Anniversary, Bacchu ✨</span>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary"   onclick="triggerHearts()">💝 Send Love</button>
+      <button class="btn btn-primary"   onclick="triggerCelebration()">🎉 Celebrate!</button>
+    </div>
+  </div>
+
+  <div id="sleep-text">🌙 Goodnight, little family... Sweet dreams 💤</div>
+  <footer>Made with 💕 for our 10th Anniversary &nbsp;|&nbsp; Babu 🦉 Bacchu 🦉 Pilli 🐤 Pandu 🐤</footer>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+let themeMode       = 'auto';
+let currentTod      = 'day';
+let isSleeping      = false;
+let soundOn         = false;
+let audioCtx        = null;
+let chirpTimer      = null;
+let sleepSoundTimer = null;
+let stars           = [];
+let behaviorTimers  = [];
+let flyInDone       = false;   // guard so doFlyIn only snaps once
+
+const OWL_IDS = ['owl-dad','owl-mom','owl-daughter','owl-son'];
+
+// ══════════════════════════════════════════════════════════
+// SMOOTH MOVEMENT ENGINE
+//
+// Positions are stored as FRACTIONS of scene size (0–1).
+// Every rAF frame we lerp cx/cy → tx/ty (fractional),
+// then convert to px for the transform. This means window
+// resize never causes a snap, and there is ONE place that
+// writes to el.style.transform — no CSS transitions compete.
+// ══════════════════════════════════════════════════════════
+const owls = {};
+OWL_IDS.forEach(id => {
+  owls[id] = {
+    cx: -0.3,   cy: 0.5,    // current position (fraction of scene)
+    tx: -0.3,   ty: 0.5,    // target  position (fraction of scene)
+    spd: 0.028,             // lerp speed per frame
+    arrived: true,
+    cb: null,
+    flying: true,
+  };
+});
+
+// Fractional perch / sleep / gather positions
+const PERCH = {
+  'owl-dad':      [0.34, 0.60],
+  'owl-mom':      [0.56, 0.60],
+  'owl-daughter': [0.42, 0.48],
+  'owl-son':      [0.50, 0.44],
+};
+const SLEEP = {
+  'owl-dad':      [0.31, 0.58],
+  'owl-mom':      [0.57, 0.58],
+  'owl-daughter': [0.39, 0.53],
+  'owl-son':      [0.48, 0.53],
+};
+const GATHER = {
+  'owl-dad':      [0.35, 0.44],
+  'owl-mom':      [0.55, 0.44],
+  'owl-daughter': [0.43, 0.36],
+  'owl-son':      [0.49, 0.52],
+};
+
+function scene() {
+  const el = document.getElementById('tree-scene');
+  return { w: el.offsetWidth || window.innerWidth, h: el.offsetHeight || 500 };
+}
+
+function moveTo(id, fx, fy, spd, cb) {
+  const o = owls[id];
+  o.tx = fx; o.ty = fy;
+  o.spd = spd || 0.028;
+  o.arrived = false;
+  o.cb = cb || null;
+}
+
+// ── rAF loop ──
+function tick() {
+  const { w, h } = scene();
+  OWL_IDS.forEach(id => {
+    const o     = owls[id];
+    const el    = document.getElementById(id);
+    const inner = el.querySelector('.owl-inner');
+
+    const dx   = o.tx - o.cx;
+    const dy   = o.ty - o.cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist > 0.003) {
+      o.cx += dx * o.spd;
+      o.cy += dy * o.spd;
+    } else if (!o.arrived) {
+      o.cx = o.tx; o.cy = o.ty;
+      o.arrived = true;
+      if (o.cb) { const fn = o.cb; o.cb = null; fn(); }
+    }
+
+    // Convert fraction → px and apply to wrapper
+    const px  = o.cx * w;
+    const py  = o.cy * h;
+    // Tilt in direction of horizontal travel
+    const tilt = Math.max(-20, Math.min(20, dx * 180));
+    el.style.transform = `translate(${px}px,${py}px) rotate(${tilt}deg)`;
+
+    // Wing animation: flutter when dist > threshold, bob when perched
+    if (inner && !isSleeping) {
+      const moving = dist > 0.008;
+      if (moving && !inner.classList.contains('is-flying')) {
+        inner.classList.remove('is-perched');
+        inner.classList.add('is-flying');
+      } else if (!moving && !inner.classList.contains('is-perched')) {
+        inner.classList.remove('is-flying');
+        inner.classList.add('is-perched');
+      }
+    }
+  });
+  requestAnimationFrame(tick);
+}
+
+// ── Initial fly-in (called once at page load) ──
+function doFlyIn() {
+  if (flyInDone) return;
+  flyInDone = true;
+  const { w, h } = scene();
+  // Place offscreen in fractional coords
+  owls['owl-dad'].cx      = -0.25; owls['owl-dad'].cy      = 0.55;
+  owls['owl-mom'].cx      =  1.25; owls['owl-mom'].cy      = 0.55;
+  owls['owl-daughter'].cx = -0.20; owls['owl-daughter'].cy = 0.25;
+  owls['owl-son'].cx      =  1.20; owls['owl-son'].cy      = 0.25;
+  OWL_IDS.forEach((id, i) => {
+    const [fx, fy] = PERCH[id];
+    setTimeout(() => moveTo(id, fx, fy, 0.018), i * 400);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// OWL BEHAVIOUR — autonomous wander + family gather
+// ══════════════════════════════════════════════════════════
+function scheduleDecide(id, delay) {
+  const t = setTimeout(() => decide(id), delay);
+  behaviorTimers.push(t);
+}
+
+function decide(id) {
+  if (isSleeping) return;
+  const roll = Math.random();
+  if (roll < 0.30) {
+    // Perch at home spot
+    const [fx, fy] = PERCH[id];
+    moveTo(id, fx, fy, 0.020 + Math.random() * 0.012, () => {
+      // Sit 5–14 s then wander again
+      scheduleDecide(id, 5000 + Math.random() * 9000);
+    });
+  } else {
+    // Fly to a random spot
+    const fx = 0.05 + Math.random() * 0.82;
+    const fy = 0.04 + Math.random() * 0.64;
+    moveTo(id, fx, fy, 0.024 + Math.random() * 0.022, () => {
+      scheduleDecide(id, 600 + Math.random() * 2200);
+    });
+  }
+}
+
+function startBehaviour() {
+  // Stagger so they don't all move at once
+  OWL_IDS.forEach((id, i) => {
+    const t = setTimeout(() => decide(id), 5200 + i * 800 + Math.random() * 1200);
+    behaviorTimers.push(t);
+  });
+  scheduleGather();
+}
+
+function scheduleGather() {
+  const gap = 50000 + Math.random() * 30000;
+  const t = setTimeout(() => {
+    if (isSleeping) { scheduleGather(); return; }
+    let done = 0;
+    OWL_IDS.forEach(id => {
+      const [fx, fy] = GATHER[id];
+      moveTo(id, fx, fy, 0.016 + Math.random() * 0.008, () => {
+        done++;
+        if (done === OWL_IDS.length) {
+          // Linger 4 s together, then scatter
+          const rt = setTimeout(() => {
+            OWL_IDS.forEach(id2 => scheduleDecide(id2, Math.random() * 1500));
+            scheduleGather();
+          }, 4000);
+          behaviorTimers.push(rt);
+        }
+      });
+    });
+  }, gap);
+  behaviorTimers.push(t);
+}
+
+function stopBehaviour() {
+  behaviorTimers.forEach(clearTimeout);
+  behaviorTimers = [];
+}
+
+// ══════════════════════════════════════════════════════════
+// SKY CANVAS
+// ══════════════════════════════════════════════════════════
+const canvas = document.getElementById('sky-canvas');
+const ctx    = canvas.getContext('2d');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 220; i++)
+    stars.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+      r:Math.random()*2.2, alpha:Math.random(), spd:Math.random()*.02+.005, dir:Math.random()>.5?1:-1 });
+}
+function animateSky() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (currentTod === 'night') {
+    stars.forEach(s => {
+      s.alpha += s.spd * s.dir;
+      if (s.alpha > 1 || s.alpha < .08) s.dir *= -1;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,240,${s.alpha})`; ctx.fill();
+    });
+  } else if (currentTod === 'evening') {
+    stars.forEach(s => {
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r*.4, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,220,180,0.13)'; ctx.fill();
+    });
+  }
+  requestAnimationFrame(animateSky);
+}
+resize(); initStars(); animateSky();
+window.addEventListener('resize', () => { resize(); initStars(); });
+
+// ══════════════════════════════════════════════════════════
+// FIREFLIES
+// ══════════════════════════════════════════════════════════
+function createFireflies() {
+  for (let i = 0; i < 18; i++) {
+    const ff = document.createElement('div');
+    ff.className = 'firefly';
+    ff.style.left = (10 + Math.random()*80) + '%';
+    ff.style.top  = (30 + Math.random()*60) + '%';
+    ff.style.setProperty('--fx', (Math.random()*200-100)+'px');
+    ff.style.setProperty('--fy', (Math.random()*200-100)+'px');
+    ff.style.animationDuration = (3 + Math.random()*4) + 's';
+    ff.style.animationDelay   = (Math.random()*5) + 's';
+    document.getElementById('scene').appendChild(ff);
+  }
+}
+createFireflies();
+setInterval(() => { document.querySelectorAll('.firefly').forEach(f=>f.remove()); createFireflies(); }, 9000);
+
+// ══════════════════════════════════════════════════════════
+// SOUND
+// ══════════════════════════════════════════════════════════
+function toggleSound() {
+  soundOn = !soundOn;
+  document.getElementById('sound-btn').textContent = soundOn ? '🔔' : '🔕';
+  if (soundOn) {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    isSleeping ? startSleepSound() : startChirping();
+  } else {
+    stopAllSounds();
+  }
+}
+function stopAllSounds() {
+  if (chirpTimer)      { clearTimeout(chirpTimer);      chirpTimer = null; }
+  if (sleepSoundTimer) { clearTimeout(sleepSoundTimer); sleepSoundTimer = null; }
+}
+
+// ── Natural bird chirp ──
+function startChirping() { if (!soundOn || isSleeping) return; chirpBurst(); }
+
+function chirpBurst() {
+  if (!soundOn || !audioCtx || isSleeping) return;
+  const patterns = [
+    [1200,1600,1900],[1800,1400,1600,1200],[1500,1500,1800],
+    [2000,1400],[1300,1700,1300,1700],[1600,1900,1600],
+  ];
+  const pat  = patterns[Math.floor(Math.random()*patterns.length)];
+  const calls = 1 + Math.floor(Math.random()*4);
+  let delay = 0;
+  for (let c = 0; c < calls; c++) {
+    const t   = audioCtx.currentTime + delay;
+    const vol = 0.06 + Math.random()*0.09;
+    const spd = 0.7 + Math.random()*0.8;
+    pat.forEach((freq, i) => {
+      const nt  = t + i*0.09*spd;
+      const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+      const vib = audioCtx.createOscillator(), vg = audioCtx.createGain();
+      vib.frequency.value = 6 + Math.random()*4; vg.gain.value = freq*0.03;
+      vib.connect(vg); vg.connect(osc.frequency);
+      osc.connect(g); g.connect(audioCtx.destination); osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq*(0.95+Math.random()*.1), nt);
+      osc.frequency.exponentialRampToValueAtTime(freq*(1.1+Math.random()*.15), nt+.04*spd);
+      g.gain.setValueAtTime(0, nt); g.gain.linearRampToValueAtTime(vol, nt+.015);
+      g.gain.exponentialRampToValueAtTime(.001, nt+.12*spd);
+      vib.start(nt); vib.stop(nt+.15*spd); osc.start(nt); osc.stop(nt+.15*spd);
+    });
+    delay += pat.length*0.09*spd + 0.05 + Math.random()*0.1;
+  }
+  chirpTimer = setTimeout(chirpBurst, 1500 + Math.random()*4500 + delay*1000);
+}
+
+// ── Sleep lullaby — richer and louder ──
+function startSleepSound() { if (!soundOn || !isSleeping) return; playSleepTone(); }
+
+function playSleepTone() {
+  if (!soundOn || !isSleeping || !audioCtx) return;
+  const scale = [261.6, 293.7, 329.6, 349.2, 392, 349.2, 329.6];
+  const note  = scale[Math.floor(Math.random()*scale.length)];
+  const t     = audioCtx.currentTime;
+  const vol   = 0.20 + Math.random()*0.08;   // loud enough to hear clearly
+  const dur   = 1.8 + Math.random()*1.0;
+
+  // Three layers: fundamental + octave + warm detune
+  [[note, vol], [note*2, vol*0.30], [note*1.004, vol*0.50]].forEach(([freq, v]) => {
+    const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    osc.connect(g); g.connect(audioCtx.destination);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(v, t + 0.5);
+    g.gain.setValueAtTime(v, t + dur - 0.5);
+    g.gain.linearRampToValueAtTime(0, t + dur);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  });
+
+  sleepSoundTimer = setTimeout(playSleepTone, (dur + 1.5 + Math.random()*2) * 1000);
+}
+
+// ══════════════════════════════════════════════════════════
+// OWL CLICK
+// ══════════════════════════════════════════════════════════
+const owlEmojis = {
+  dad:['❤️','🎩','🦉','💙','😄'], mom:['💕','🌸','🦉','✨','👑'],
+  daughter:['⭐','🎀','💜','🌟','🦋'], son:['🚀','⚡','💙','🌟','🎮']
+};
+function owlClick(el, who) {
+  createFloatingEmoji(el, owlEmojis[who][Math.floor(Math.random()*owlEmojis[who].length)]);
+  if (soundOn && !isSleeping) chirpBurst();
+}
+function createFloatingEmoji(el, emoji) {
+  const rect = el.getBoundingClientRect();
+  const h = document.createElement('div'); h.className = 'heart'; h.textContent = emoji;
+  h.style.left = (rect.left + rect.width/2) + 'px'; h.style.top = rect.top + 'px';
+  h.style.position = 'fixed';
+  document.body.appendChild(h); setTimeout(() => h.remove(), 4000);
+}
+
+// ══════════════════════════════════════════════════════════
+// HEARTS / CELEBRATION
+// ══════════════════════════════════════════════════════════
+function triggerHearts() {
+  const e = ['❤️','💕','💖','💝','💗','🌹','💞','💓'];
+  for (let i = 0; i < 15; i++) setTimeout(() => {
+    const h = document.createElement('div'); h.className = 'heart';
+    h.textContent = e[Math.floor(Math.random()*e.length)];
+    h.style.left = (10+Math.random()*80)+'%';
+    h.style.top  = (window.scrollY+50+Math.random()*window.innerHeight*.6)+'px';
+    h.style.position = 'absolute'; h.style.fontSize = (1+Math.random()*1.5)+'rem';
+    document.getElementById('scene').appendChild(h); setTimeout(() => h.remove(), 4000);
+  }, i*120);
+  if (soundOn && !isSleeping) for (let i=0;i<3;i++) setTimeout(chirpBurst, i*500);
+}
+function triggerCelebration() {
+  const e = ['🎉','🎊','✨','🌟','🎈','🥂','🎆','🎇'];
+  for (let i = 0; i < 30; i++) setTimeout(() => {
+    const sp = document.createElement('div'); sp.className = 'sparkle';
+    sp.textContent = e[Math.floor(Math.random()*e.length)];
+    sp.style.left = (Math.random()*100)+'vw'; sp.style.top = (Math.random()*100)+'vh';
+    sp.style.fontSize = (1+Math.random()*2)+'rem';
+    document.body.appendChild(sp); setTimeout(() => sp.remove(), 1000);
+  }, i*80);
+  if (soundOn) {
+    if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const t = audioCtx.currentTime;
+    [523,659,784,1046,784,1046,1318].forEach((f,i) => {
+      const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
+      osc.connect(g); g.connect(audioCtx.destination); osc.frequency.value=f;
+      g.gain.setValueAtTime(.18,t+i*.12); g.gain.exponentialRampToValueAtTime(.001,t+i*.12+.35);
+      osc.start(t+i*.12); osc.stop(t+i*.12+.4);
+    });
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// SLEEP / WAKE
+// ══════════════════════════════════════════════════════════
+function sleepOwls() {
+  if (isSleeping) return;
+  isSleeping = true;
+  stopBehaviour();
+  stopAllSounds();
+  // Smoothly glide to sleep positions (no snapping — moveTo uses current cx/cy)
+  OWL_IDS.forEach(id => {
+    const [fx, fy] = SLEEP[id];
+    moveTo(id, fx, fy, 0.014);
+  });
+  // After ~3 s settling, close eyes and show zzz
+  const t = setTimeout(() => {
+    if (!isSleeping) return;
+    OWL_IDS.forEach((id, idx) => {
+      const el = document.getElementById(id);
+      el.classList.add('sleeping-owl');
+      const inner = el.querySelector('.owl-inner');
+      if (inner) inner.classList.remove('is-flying', 'is-perched');
+      if (!el.querySelector('.zzz')) {
+        const zzz = document.createElement('div');
+        zzz.className = 'zzz'; zzz.textContent = 'z z z';
+        zzz.style.cssText = `position:absolute;top:-22px;left:50%;transform:translateX(-50%);animation-delay:${idx*.45}s`;
+        el.appendChild(zzz);
+      }
+    });
+    document.getElementById('sleep-text').style.display = 'block';
+    if (soundOn) startSleepSound();
+  }, 3200);
+  behaviorTimers.push(t);
+}
+
+function wakeOwls() {
+  if (!isSleeping) return;
+  isSleeping = false;
+  stopAllSounds();
+  OWL_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('sleeping-owl');
+    el.querySelectorAll('.zzz').forEach(z => z.remove());
+    const inner = el.querySelector('.owl-inner');
+    if (inner) { inner.classList.remove('is-perched'); inner.classList.add('is-flying'); }
+    // Smoothly fly back to perch from wherever they are (no snap!)
+    const [fx, fy] = PERCH[id];
+    moveTo(id, fx, fy, 0.016);
+  });
+  document.getElementById('sleep-text').style.display = 'none';
+  // Restart behaviour after they settle
+  const t = setTimeout(() => startBehaviour(), 3500);
+  behaviorTimers.push(t);
+  if (soundOn) setTimeout(startChirping, 1500);
+}
+
+// ══════════════════════════════════════════════════════════
+// TIME THEME
+// ══════════════════════════════════════════════════════════
+function getTimeOfDay() {
+  const h = new Date().getHours();
+  if (h>=6 && h<17) return 'day'; if (h>=17 && h<20) return 'evening'; return 'night';
+}
+function applyTheme(tod) {
+  currentTod = tod;
+  document.body.classList.remove('is-day','is-evening','is-night');
+  document.body.classList.add('is-'+tod);
+  const lbl = document.getElementById('time-label');
+  if (tod==='day')     lbl.textContent = '☀️ Day';
+  if (tod==='evening') lbl.textContent = '🌅 Evening';
+  if (tod==='night')   lbl.textContent = '🌙 Night';
+  if (tod==='night' && !isSleeping)     sleepOwls();
+  else if (tod!=='night' && isSleeping) wakeOwls();
+}
+function setThemeMode(mode) {
+  themeMode = mode;
+  ['auto','day','evening','night'].forEach(m =>
+    document.getElementById('pill-'+m).classList.toggle('active', m===mode));
+  applyTheme(mode==='auto' ? getTimeOfDay() : mode);
+}
+setInterval(() => { if (themeMode==='auto') applyTheme(getTimeOfDay()); }, 60000);
+
+// ══════════════════════════════════════════════════════════
+// SPARKLE ON CLICK
+// ══════════════════════════════════════════════════════════
+document.addEventListener('click', e => {
+  if (e.target.closest('.btn,.owl-wrapper,#sound-btn,.theme-pill,#top-bar')) return;
+  const sp = document.createElement('div'); sp.className = 'sparkle';
+  sp.textContent = ['✨','⭐','💫'][Math.floor(Math.random()*3)];
+  sp.style.left = e.clientX+'px'; sp.style.top = e.clientY+'px'; sp.style.position = 'fixed';
+  document.body.appendChild(sp); setTimeout(() => sp.remove(), 1000);
+});
+
+// ══════════════════════════════════════════════════════════
+// DAYS COUNTER
+// ══════════════════════════════════════════════════════════
+function animateCounter() {
+  const el = document.getElementById('days-count'), target = 3652; let n = 0;
+  const step = Math.ceil(target/60);
+  const t = setInterval(() => { n=Math.min(n+step,target); el.textContent=n.toLocaleString(); if(n>=target)clearInterval(t); }, 30);
+}
+const obs = new IntersectionObserver(entries => { if(entries[0].isIntersecting){animateCounter();obs.disconnect();} });
+obs.observe(document.getElementById('love-story'));
+
+// ══════════════════════════════════════════════════════════
+// PERIODIC HEARTS
+// ══════════════════════════════════════════════════════════
+setInterval(() => {
+  if (!isSleeping) {
+    const dad = document.getElementById('owl-dad');
+    if (dad) createFloatingEmoji(dad, ['❤️','💕','💖'][Math.floor(Math.random()*3)]);
+  }
+}, 6000);
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+tick();           // start rAF loop — owls sit at offscreen position until fly-in
+setThemeMode('auto');
+// Wait one frame so layout is complete, then fly in
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  doFlyIn();
+  if (!isSleeping) startBehaviour();
+}));
+</script>
+</body>
+</html>
