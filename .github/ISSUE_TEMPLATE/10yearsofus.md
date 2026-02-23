@@ -3,7 +3,7 @@ name: 10yearsofus
 about: Share your wishes with us
 title: Happy Anniversary
 labels: ''
-assignees: achallakiran
+assignees: achallakiran, divyakodu
 
 ---
 
